@@ -1,0 +1,6 @@
+pdfs/
+chroma/
+*.pyc
+.env
+.google-cookie
+chromedriver.exe

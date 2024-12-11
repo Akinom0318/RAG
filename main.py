@@ -18,12 +18,8 @@ Answer the question based on the above context: {question}
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("query_text", type=str, help="The query text.")
-    args = parser.parse_args()
-    print(args)
-    query_text = args.query_text
-    query_rag(query_text)
+    query = input("Enter question about the docuemnt: ")
+    query_rag(query)
 
 
 def query_rag(query_text: str):
@@ -35,9 +31,9 @@ def query_rag(query_text: str):
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
-    # print(prompt)
-
-    model = Ollama(model="dolphin-mistral")
+    
+    #need to replace with other model
+    model = Ollama(model="michaelbui/rocinante-12b-v1.1:q4-k-m")
     response_text = model.invoke(prompt)
 
     sources = [doc.metadata.get("id", None) for doc, _score in results]

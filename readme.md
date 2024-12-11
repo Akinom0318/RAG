@@ -8,6 +8,8 @@ pip install langchain
 pip install pypdf
 pip install chromadb
 pip install boto3
+#and some individual langchain packages but I forgot:)
 ```
 
 > and you might need to update c++ tools to 14 
+

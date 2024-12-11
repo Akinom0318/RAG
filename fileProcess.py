@@ -5,7 +5,8 @@ from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings.ollama import OllamaEmbeddings
+from langchain_huggingface.embeddings import HuggingFaceEmbeddings
+
 
 DATA_PATH = "pdfs"
 CHROMA_PATH = "chroma"
@@ -39,7 +40,7 @@ def split_documents(documents: list[Document]):
     return splitter.split_documents(documents)
 
 def get_embedding_function():
-    embeddings = OllamaEmbeddings(model="all-minilm")
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
     return embeddings
 
 def add_to_chroma(chunks: list[Document]):
@@ -90,7 +91,6 @@ def create_chunk_ids(chunks: list[Document]):
         last_page_id = current_page_id
 
         chunk.metadata["id"] = chunk_id
-
     return chunks
 
 if __name__ == "__main__":
